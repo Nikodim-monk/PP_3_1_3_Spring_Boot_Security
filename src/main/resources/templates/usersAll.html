@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список людей в базе</title>
+</head>
+<body>
+<table th:border="1">
+    <thead>
+    <tr>
+        <th>№ п/п</th>
+        <th>Имя</th>
+        <th>Возраст</th>
+    </tr>
+    </thead>
+
+    <div th:each="user : ${users}">
+        <tr th:align="center">
+            <td th:text="${user.getId()}"></td>
+            <td><a th:href="@{/admin/{id}(id=${user.getId()})}" th:text="${user.getName()}"></a></td>
+            <td th:text="${user.getAge()}"></td>
+        </tr>
+    </div>
+</table>
+<br/>
+<!--/*@thymesVar id="user" type="model"*/-->
+<form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+    <label for="name">Новое имя:</label>
+    <input type="text" th:name="name" id="name">
+    <br/>
+    <label for="age">Возраст:</label>
+    <input type="text" th:name="age" id="age">
+    <br>
+    <br>
+    <input type="submit" value="Записать"/>
+</form>
+<br>
+<form th:method="POST"  th:action="@{/logout}">
+    <input type="submit" value="  Выйти  "/>
+</form>
+</body>
+</html>
+
