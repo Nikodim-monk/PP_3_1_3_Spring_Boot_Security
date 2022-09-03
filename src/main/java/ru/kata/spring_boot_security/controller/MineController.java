@@ -8,10 +8,12 @@ import java.security.Principal;
 
 @Controller
 public class MineController {
+
     @GetMapping("/mL")
     public String print() {
         return "mine_login";
     }
+
     @PostMapping("/aaa")
     public String login(Principal principal) {
         String aaa=principal.getName();

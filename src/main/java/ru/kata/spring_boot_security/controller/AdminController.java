@@ -35,7 +35,7 @@ public class AdminController {
     @PutMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
         User userNotUpdate = service.getUser(id);
-        userNotUpdate.setName(user.getName());
+        userNotUpdate.setFirstname(user.getFirstname());
         userNotUpdate.setAge(user.getAge());
         service.updateUser(userNotUpdate);
         return "redirect:/admin";
