@@ -23,12 +23,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = getByFirstname(name);
+    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+        User user = getByEmail(mail);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", name));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", mail));
         }
-        return new org.springframework.security.core.userdetails.User(user.getFirstname(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
 
@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User getByFirstname(String name) {
-        return repository.findByFirstname(name);
+    public User getByEmail(String mail) {
+        return repository.findByEmail(mail);
     }
 
     public List<User> getAllUsers() {
