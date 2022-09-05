@@ -8,7 +8,7 @@ public class MineController {
 
     @GetMapping("/mL")
     public String printMineLoginPage() {
-        return "mine";
+        return "mine_login";
     }
 
     @GetMapping("/hello")
