@@ -11,8 +11,4 @@ public class MineController {
         return "mine_login";
     }
 
-    @GetMapping("/hello")
-    public String printIndex() {
-        return "index";
-    }
 }

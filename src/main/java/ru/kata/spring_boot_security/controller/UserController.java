@@ -20,6 +20,6 @@ public class UserController {
     public String printAllUsers(Principal principal, ModelMap model) {
         User user = service.getByEmail(principal.getName());
         model.addAttribute("user", user);
-        return "user_view";
+        return "user_panel";
     }
 }

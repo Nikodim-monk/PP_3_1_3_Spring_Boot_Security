@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin panel</title>
+    <link rel="shortcut icon" type="image/png"
+          href="https://avatars.mds.yandex.net/i?id=bc97ef2f6266bf31f3060082b2ab57cf-7000993-images-thumbs&n=13&exp=1">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .st1 {
+            height: 100vh;
+            background-color: #f6f9f3;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-11 p-2 bg-dark text-white">
+            <t class="font-weight-bold" th:text="${admin.getEmail()}">admin@mail.ru</t>
+            <t class="font-weight-normal">with roles: ADMIN USER</t>
+        </div>
+        <form class="col-1 p-2 bg-dark" th:method="POST" th:action="@{/logout}">
+            <button class="btn btn-dark text-secondary p-0 btn-sm float-right" type="submit">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-10 st1">
+            <p></p>
+            <h1 style="margin-left: 15px">Admin panel</h1>
+            <h5 style="margin-left: 5px" class="col-12 st3 p-2 mb-0 border">All users</h5>
+            <div style="margin: 5px" class="border col-12 bg-white">
+                <table class="table table-striped">
+                    <p></p>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <div th:each="ur : ${user_role}">
+                        <tr>
+                            <td th:text="${ur.getKey().getId()}">ID</td>
+                            <td th:text="${ur.getKey().getFirstname()}">First Name</td>
+                            <td th:text="${ur.getKey().getLastname()}">Last Name</td>
+                            <td th:text="${ur.getKey().getAge()}">Age</td>
+                            <td th:text="${ur.getKey().getEmail()}">Email</td>
+                            <td th:text="${ur.getValue()}">Role</td>
+                        </tr>
+                    </div>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

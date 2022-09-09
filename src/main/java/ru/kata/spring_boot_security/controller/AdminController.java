@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring_boot_security.entity.User;
 import ru.kata.spring_boot_security.service.UserService;
 
+import java.security.Principal;
+import java.util.*;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -15,9 +18,25 @@ public class AdminController {
     private UserService service;
 
     @GetMapping()
-    public String printAllUsers(ModelMap model) {
-        model.addAttribute("users", service.getAllUsers());
-        return "usersAll";
+    public String printAllUsers(Principal principal, ModelMap model) {
+        Map<User,String> user_role=new LinkedHashMap<>();
+        List<User> users = service.getAllUsers();
+
+        for (User elem : users) {
+            String rs = elem.getRoles().toString();
+            if (rs.contains("ROLE_ADMIN") && rs.contains("ROLE_USER")) {
+                user_role.put(elem,"ADMIN USER");
+            } else if (rs.contains("ROLE_ADMIN")) {
+                user_role.put(elem,"ADMIN");
+            } else if (rs.contains("ROLE_USER")) {
+                user_role.put(elem,"USER");
+            } else {
+                user_role.put(elem,"");
+            }
+        }
+        model.addAttribute("admin", service.getByEmail(principal.getName()));
+        model.addAttribute("user_role", user_role);
+        return "admin_panel";
     }
 
     @GetMapping("/{id}")
