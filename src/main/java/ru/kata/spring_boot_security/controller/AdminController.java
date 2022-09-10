@@ -21,20 +21,13 @@ public class AdminController {
     public String printAllUsers(Principal principal, ModelMap model) {
         Map<User,String> user_role=new LinkedHashMap<>();
         List<User> users = service.getAllUsers();
+        User admin=service.getByEmail(principal.getName());
 
         for (User elem : users) {
-            String rs = elem.getRoles().toString();
-            if (rs.contains("ROLE_ADMIN") && rs.contains("ROLE_USER")) {
-                user_role.put(elem,"ADMIN USER");
-            } else if (rs.contains("ROLE_ADMIN")) {
-                user_role.put(elem,"ADMIN");
-            } else if (rs.contains("ROLE_USER")) {
-                user_role.put(elem,"USER");
-            } else {
-                user_role.put(elem,"");
-            }
+            user_role.put(elem,roleSting(elem));
         }
-        model.addAttribute("admin", service.getByEmail(principal.getName()));
+        model.addAttribute("admin", admin);
+        model.addAttribute("role", roleSting(admin));
         model.addAttribute("user_role", user_role);
         return "admin_panel";
     }
@@ -66,5 +59,18 @@ public class AdminController {
     public String deleteUser(@PathVariable("id") long id) {
         service.userDelete(id);
         return "redirect:/admin";
+    }
+
+    private String roleSting(User elem){
+        String rs = elem.getRoles().toString();
+        if (rs.contains("ROLE_ADMIN") && rs.contains("ROLE_USER")) {
+            return "ADMIN USER";
+        } else if (rs.contains("ROLE_ADMIN")) {
+            return "ADMIN";
+        } else if (rs.contains("ROLE_USER")) {
+            return "USER";
+        } else {
+            return "";
+        }
     }
 }

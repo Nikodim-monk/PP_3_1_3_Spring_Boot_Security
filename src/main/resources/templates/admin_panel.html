@@ -17,6 +17,10 @@
             height: 100vh;
             background-color: #f6f9f3;
         }
+        .st2 {
+            margin-left:  -1rem;
+            margin-right: -1rem;
+        }
     </style>
 
 </head>
@@ -26,7 +30,8 @@
     <div class="row">
         <div class="col-11 p-2 bg-dark text-white">
             <t class="font-weight-bold" th:text="${admin.getEmail()}">admin@mail.ru</t>
-            <t class="font-weight-normal">with roles: ADMIN USER</t>
+            <t class="font-weight-normal">with roles:</t>
+            <t th:text="${role}">ADMIN</t>
         </div>
         <form class="col-1 p-2 bg-dark" th:method="POST" th:action="@{/logout}">
             <button class="btn btn-dark text-secondary p-0 btn-sm float-right" type="submit">Logout</button>
@@ -36,46 +41,117 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-10 st1">
+        <div class="col-2">
             <p></p>
-            <h1 style="margin-left: 15px">Admin panel</h1>
-            <h5 style="margin-left: 5px" class="col-12 st3 p-2 mb-0 border">All users</h5>
-            <div style="margin: 5px" class="border col-12 bg-white">
-                <table class="table table-striped">
+            <div class="nav flex-column nav-pills st2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+                   role="tab" aria-controls="v-pills-home" aria-selected="true">Admin</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
+                   role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
+            </div>
+        </div>
+
+        <div class="col-10 st1">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
                     <p></p>
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Age</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
+                    <h1 style="margin-left: 15px">Admin panel</h1>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                               aria-controls="nav-home" aria-selected="true">Users table</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                               aria-controls="nav-profile" aria-selected="false">New User</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <h5  class="col-12 st3 p-2 mb-0 border ml-1">All users</h5>
+                            <div class="border col-12 bg-white ml-1">
+                                <table class="table table-striped">
+                                    <p></p>
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Age</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <div th:each="ur : ${user_role}">
+                                        <tr>
+                                            <td th:text="${ur.getKey().getId()}">ID</td>
+                                            <td th:text="${ur.getKey().getFirstname()}">First Name</td>
+                                            <td th:text="${ur.getKey().getLastname()}">Last Name</td>
+                                            <td th:text="${ur.getKey().getAge()}">Age</td>
+                                            <td th:text="${ur.getKey().getEmail()}">Email</td>
+                                            <td th:text="${ur.getValue()}">Role</td>
+                                            <td><a href="#" class="btn btn-info btn-sm">Edit</a></td>
+                                            <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
+                                        </tr>
+                                    </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-                    <tbody>
-                    <div th:each="ur : ${user_role}">
-                        <tr>
-                            <td th:text="${ur.getKey().getId()}">ID</td>
-                            <td th:text="${ur.getKey().getFirstname()}">First Name</td>
-                            <td th:text="${ur.getKey().getLastname()}">Last Name</td>
-                            <td th:text="${ur.getKey().getAge()}">Age</td>
-                            <td th:text="${ur.getKey().getEmail()}">Email</td>
-                            <td th:text="${ur.getValue()}">Role</td>
-                        </tr>
+                            Добавление нового юзера
+
+                        </div>
                     </div>
-
-                    </tbody>
-
-                </table>
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <p></p>
+                    <h1 style="margin-left: 20px">User information-page</h1>
+                    <h5 class="col-12 st3 p-2 mb-0 border ml-1">About user</h5>
+                    <div class="border col-12 bg-white ml-1">
+                        <table class="table table-striped">
+                            <p></p>
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
+                            </thead>
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td th:text="${user.getId()}">ID</td>-->
+<!--                                <td th:text="${user.getFirstname()}">First Name</td>-->
+<!--                                <td th:text="${user.getLastname()}">Last Name</td>-->
+<!--                                <td th:text="${user.getAge()}">Age</td>-->
+<!--                                <td th:text="${user.getEmail()}">Email</td>-->
+<!--                                <td>USER</td>-->
+<!--                            <tr>-->
+<!--                            </tbody>-->
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
 
