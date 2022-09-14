@@ -4,14 +4,12 @@
     <title>Admin panel</title>
     <link rel="shortcut icon" type="image/png"
           href="https://avatars.mds.yandex.net/i?id=bc97ef2f6266bf31f3060082b2ab57cf-7000993-images-thumbs&n=13&exp=1">
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <style>
         .st1 {
             height: 100vh;
@@ -27,10 +25,8 @@
             height: 65vh;
             background-color: white;
         }
-
     </style>
-
-</head>
+</head><!--<ссылки и стили>-->
 
 <body>
 <div class="container-fluid">
@@ -41,10 +37,10 @@
             <t th:text="${role}">ADMIN</t>
         </div>
         <form class="col-1 p-2 bg-dark text-right" th:method="POST" th:action="@{/logout}">
-            <button class="btn btn-dark text-white-50 btn-sm mr-1   " type="submit">Logout</button>
+            <button class="btn btn-dark text-white-50 btn-sm mr-1" type="submit">Logout</button>
         </form>
     </div>
-</div>
+</div><!--<черная полоса с кнопкой>-->
 
 <div class="container-fluid">
     <div class="row">
@@ -56,7 +52,7 @@
                 <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
                    role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
             </div>
-        </div>
+        </div><!--боковые вкладки user и admin-->
 
         <div class="col-10 st1">
             <div class="tab-content" id="v-pills-tabContent">
@@ -103,8 +99,12 @@
                                             <td th:text="${ur.getKey().getAge()}">Age</td>
                                             <td th:text="${ur.getKey().getEmail()}">Email</td>
                                             <td th:text="${ur.getValue()}">Role</td>
-                                            <td><a href="#" class="btn btn-info btn-sm">Edit</a></td>
-                                            <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
+                                            <td><a href="#editUser" class="btn btn-info btn-sm"
+                                                   data-toggle="modal">Edit</a></td>
+                                            <!--                                            <td><a th:href="@{/mine/{id}(id=${ur.getKey().getId()})}" class="btn btn-info btn-sm">Edit</a></td>-->
+
+                                            <td><a href="#deleteUser" class="btn btn-danger btn-sm"
+                                                   data-toggle="modal">Delete</a></td>
                                         </tr>
                                     </div>
                                     </tbody>
@@ -116,6 +116,7 @@
                             <div class="col-12 st3 ml-1">
                                 <div class="container-fluid" style="width: 30%">
                                     <br>
+                                    <!--/*@thymesVar id="user" type="entity"*/-->
                                     <form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
                                         <div class="text-center">
                                             <label for="firstname" class="font-weight-bold">First name</label>
@@ -125,12 +126,12 @@
                                         <div class="text-center mt-3">
                                             <label for="lastname" class="font-weight-bold">Last name</label>
                                             <input type="text" id="lastname" name="lastname" class="form-control"
-                                                   placeholder="Last name" required autofocus>
+                                                   placeholder="Last name" required>
                                         </div>
                                         <div class="text-center mt-3">
                                             <label for="age" class="font-weight-bold">Age</label>
                                             <input type="text" id="age" name="age" class="form-control"
-                                                   placeholder="Age" required autofocus>
+                                                   placeholder="Age" required>
                                         </div>
                                         <div class="text-center mt-3">
                                             <label for="email" class="font-weight-bold">Email</label>
@@ -141,16 +142,15 @@
                                             <label for="password" class="font-weight-bold">Password</label>
                                             <input type="password" id="password" name="password" class="form-control"
                                                    placeholder="Password" required>
-                                            <div class="form-group">
-                                                <label for="role" class="font-weight-bold">Role</label>
-                                                <select multiple class="form-control" name="role" id="role"
-                                                        style="height: 50px;">
-                                                    <option>ADMIN</option>
-                                                    <option>USER</option>
-                                                    <option>ADMIN USER</option>
-                                                </select>
-
-                                            </div>
+                                        </div>
+                                        <div class="form-group text-center mt-3">
+                                            <label for="role" class="font-weight-bold">Role</label>
+                                            <select multiple class="form-control" name="role" id="role"
+                                                    style="height: 50px;">
+                                                <option>ADMIN</option>
+                                                <option>USER</option>
+                                                <option>ADMIN USER</option>
+                                            </select>
                                         </div>
                                         <div class="text-center mt-3">
                                             <button class="btn btn-success" type="submit">Add new user</button>
@@ -158,9 +158,7 @@
                                     </form>
                                 </div>
                             </div>
-
-
-                        </div>
+                        </div><!--<создание нового юзера>-->
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -192,12 +190,138 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div><!--<инфо по юзеру из админа>-->
             </div>
-        </div>
+        </div><!--<вкладки справа с инфо по всем, по юзеру, создание нового>-->
     </div>
 </div>
 
+Modal Edit
+<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Edit user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form th:method="POST" th:action="@{mine/fff}" th:object="${user}">
+                <div class="container-fluid" style="width: 50%">
+
+                    <div class="text-center mt-3">
+                        <label for="id" class="font-weight-bold mb-0">ID</label>
+                        <input type="text" id="id" name="id" class="form-control"
+                               placeholder="ID" readonly>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <label for="firstname_e" class="font-weight-bold mb-0">First name</label>
+                        <input type="text" id="firstname_e" name="firstname_e" class="form-control"
+                               placeholder="First name" required autofocus>
+                    </div>
+                    <div class="text-center mt-3">
+                        <label for="lastname_e" class="font-weight-bold mb-0">Last name</label>
+                        <input type="text" id="lastname_e" name="lastname_e" class="form-control"
+                               placeholder="Last name" required>
+                    </div>
+                    <div class="text-center mt-3">
+                        <label for="age_e" class="font-weight-bold mb-0">Age</label>
+                        <input type="text" id="age_e" name="age_e" class="form-control"
+                               placeholder="Age" required>
+                    </div>
+                    <div class="text-center mt-3">
+                        <label for="email_e" class="font-weight-bold mb-0">Email</label>
+                        <input type="email" id="email_e" name="email_e" class="form-control"
+                               placeholder="Email address" required>
+                    </div>
+                    <div class="text-center mt-3">
+                        <label for="password_e" class="font-weight-bold mb-0">Password</label>
+                        <input type="password" id="password_e" name="password_e" class="form-control"
+                               placeholder="Password" required>
+                        <div class="form-group mt-3">
+                            <label for="role" class="font-weight-bold mb-0">Role</label>
+                            <select multiple class="form-control" name="role" id="role_e"
+                                    style="height: 50px;">
+                                <option>ADMIN</option>
+                                <option>USER</option>
+                                <option>ADMIN USER</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info btn-sm">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!--<модальное окно с редактированием юзера>-->
+
+<!-- Modal Delete-->
+<!--<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"-->
+<!--     aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleModalLabel2">Delete user</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&#215;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="container-fluid" style="width: 50%">-->
+
+<!--                &lt;!&ndash;                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">&ndash;&gt;-->
+<!--                <div class="text-center mt-3">-->
+<!--                    <label for="id" class="font-weight-bold mb-0">First name</label>-->
+<!--                    <input type="text" id="id_d" name="id" class="form-control"-->
+<!--                           placeholder="ID" readonly>-->
+<!--                </div>-->
+
+<!--                <div class="text-center mt-3">-->
+<!--                    <label for="firstname" class="font-weight-bold mb-0">First name</label>-->
+<!--                    <input type="text" id="firstname_d" name="firstname" class="form-control"-->
+<!--                           placeholder="First name" readonly>-->
+<!--                </div>-->
+<!--                <div class="text-center mt-3">-->
+<!--                    <label for="lastname" class="font-weight-bold mb-0">Last name</label>-->
+<!--                    <input type="text" id="lastname_d" name="lastname" class="form-control"-->
+<!--                           placeholder="Last name" readonly>-->
+<!--                </div>-->
+<!--                <div class="text-center mt-3">-->
+<!--                    <label for="age" class="font-weight-bold mb-0">Age</label>-->
+<!--                    <input type="text" id="age_d" name="age" class="form-control"-->
+<!--                           placeholder="Age" readonly>-->
+<!--                </div>-->
+<!--                <div class="text-center mt-3">-->
+<!--                    <label for="email" class="font-weight-bold mb-0">Email</label>-->
+<!--                    <input type="email" id="email_d" name="email" class="form-control"-->
+<!--                           placeholder="Email address" readonly>-->
+<!--                </div>-->
+<!--                <div class="form-group text-center mt-3">-->
+<!--                    <label for="role" class="font-weight-bold mb-0">Role</label>-->
+<!--                    <select multiple class="form-control" name="role" id="role_d"-->
+<!--                            style="height: 50px;" disabled="disabled">-->
+<!--                        <option>ADMIN</option>-->
+<!--                        <option>USER</option>-->
+<!--                        <option>ADMIN USER</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash;                </form>&ndash;&gt;-->
+
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>-->
+<!--                <button type="button" class="btn btn-danger btn-sm">Delete</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>&lt;!&ndash;<модальное окно с удалением юзера>&ndash;&gt;-->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
