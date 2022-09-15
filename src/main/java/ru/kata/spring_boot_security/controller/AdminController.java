@@ -34,12 +34,6 @@ public class AdminController {
         return "admin_panel";
     }
 
-    @GetMapping("/{id}")
-    public String printUser(ModelMap model, @PathVariable("id") long id) {
-        model.addAttribute("user", service.getUser(id));
-        return "user";
-    }
-
     @PostMapping("/new")
     public String createNewUser(@ModelAttribute("user") User user,
                                 @RequestParam(value = "role", required = false) String role) {
@@ -60,9 +54,9 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") long id) {
-        service.userDelete(id);
+    @DeleteMapping("/delete")
+    public String deleteUser(@ModelAttribute("user") User user) {
+        service.userDelete(service.getByEmail(user.getEmail()).getId());
         return "redirect:/admin";
     }
 }

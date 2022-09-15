@@ -17,14 +17,14 @@ public class MineController {
         return "mine_login";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/userFor")
     @ResponseBody
-    public String aaa(@PathVariable("id") long id) {
-        User user = service.getUser(id);
-        return "index";
+    public User userFor(long id) {
+        return service.getUser(id);
     }
     @PostMapping("/fff")
-    public String fff() {
+    public String deleteUser(@ModelAttribute("user") User user,@RequestParam(value = "role", required = false) String role) {
+//        service.userDelete(id);
         return "index";
     }
 }
