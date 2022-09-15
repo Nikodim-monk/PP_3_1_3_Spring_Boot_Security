@@ -22,9 +22,4 @@ public class MineController {
     public User userFor(long id) {
         return service.getUser(id);
     }
-    @PostMapping("/fff")
-    public String deleteUser(@ModelAttribute("user") User user,@RequestParam(value = "role", required = false) String role) {
-//        service.userDelete(id);
-        return "index";
-    }
 }

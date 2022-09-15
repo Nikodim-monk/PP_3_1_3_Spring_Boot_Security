@@ -43,20 +43,30 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PutMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
-        User userNotUpdate = service.getUser(id);
+    @PutMapping("/edit")
+    public String updateUser(@ModelAttribute("user") User user,
+                             @RequestParam(value = "role", required = false) String role) {
+
+        User userNotUpdate = service.getUser(user.getId());
+
         userNotUpdate.setFirstname(user.getFirstname());
         userNotUpdate.setLastname(user.getLastname());
         userNotUpdate.setAge(user.getAge());
         userNotUpdate.setEmail(user.getEmail());
+        if (!user.getPassword().equals("")) {
+            userNotUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        if (role != null) {
+            userNotUpdate.setRoles(Vspom.roles(role));
+        }
+
         service.updateUser(userNotUpdate);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/delete")
     public String deleteUser(@ModelAttribute("user") User user) {
-        service.userDelete(service.getByEmail(user.getEmail()).getId());
+        service.userDelete(user.getId());
         return "redirect:/admin";
     }
 }

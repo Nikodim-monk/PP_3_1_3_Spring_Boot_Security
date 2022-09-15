@@ -204,12 +204,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form th:method="POST" th:action="@{mine/fff}" th:object="${user}">
+            <form th:method="PUT" th:action="@{admin/edit}" >
                 <div class="container-fluid w-50">
 
                     <div class="text-center mt-3">
                         <label for="id1" class="font-weight-bold mb-0">ID</label>
-                        <input type="text" id="id1" name="id1" class="form-control"
+                        <input type="text" id="id1" name="id" class="form-control"
                                placeholder="ID" readonly>
                     </div>
                     <div class="text-center mt-3">
@@ -271,7 +271,7 @@
                 <div class="container-fluid" style="width: 50%">
                     <div class="text-center mt-3">
                         <label for="id2" class="font-weight-bold mb-0">ID</label>
-                        <input type="text" id="id2" name="id2" class="form-control"
+                        <input type="text" id="id2" name="id" class="form-control"
                                placeholder="ID" readonly>
                     </div>
 
