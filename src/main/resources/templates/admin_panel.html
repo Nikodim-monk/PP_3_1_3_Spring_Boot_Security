@@ -127,7 +127,7 @@
                                         </div>
                                         <div class="text-center mt-3">
                                             <label for="age" class="font-weight-bold  mb-0">Age</label>
-                                            <input type="text" id="age" name="age" class="form-control"
+                                            <input type="number" step="1" id="age" name="age" class="form-control"
                                                    placeholder="Age" required>
                                         </div>
                                         <div class="text-center mt-3">
@@ -189,7 +189,7 @@
                     </div>
                 </div><!--<инфо по юзеру из админа>-->
             </div>
-        </div><!--<вкладки справа с инфо по всем, по юзеру, создание нового>-->
+        </div>
     </div>
 </div>
 
@@ -204,7 +204,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form th:method="PUT" th:action="@{admin/edit}" >
+            <form th:method="PUT" th:action="@{admin/edit}">
                 <div class="container-fluid w-50">
 
                     <div class="text-center mt-3">
@@ -223,8 +223,8 @@
                                placeholder="Last name" required>
                     </div>
                     <div class="text-center mt-3">
-                        <label for="age" class="font-weight-bold mb-0">Age</label>
-                        <input type="text" id="age1" name="age" class="form-control"
+                        <label for="age" class="font-weight-bold  mb-0">Age</label>
+                        <input type="number" step="1" id="age1" name="age" class="form-control"
                                placeholder="Age" required>
                     </div>
                     <div class="text-center mt-3">
@@ -274,7 +274,6 @@
                         <input type="text" id="id2" name="id" class="form-control"
                                placeholder="ID" readonly>
                     </div>
-
                     <div class="text-center mt-3">
                         <label for="firstname" class="font-weight-bold mb-0">First name</label>
                         <input type="text" id="firstname2" name="firstname" class="form-control"
