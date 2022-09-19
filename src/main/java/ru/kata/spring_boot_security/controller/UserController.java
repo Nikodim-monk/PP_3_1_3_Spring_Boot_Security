@@ -18,7 +18,7 @@ public class UserController {
     private UserService service;
 
     @GetMapping()
-    public String printAllUsers(Principal principal, ModelMap model) {
+    public String printUser(Principal principal, ModelMap model) {
         User user = service.getByEmail(principal.getName());
         model.addAttribute("user", user);
         return "user_panel";
