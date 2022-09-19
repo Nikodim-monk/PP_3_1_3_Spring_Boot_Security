@@ -94,14 +94,16 @@
                                     <div th:each="ur : ${user_role}">
                                         <tr>
                                             <td th:text="${ur.getKey().getId()}">ID</td>
-                                            <td th:text="${ur.getKey().getFirstname()}">First Name</td>
-                                            <td th:text="${ur.getKey().getLastname()}">Last Name</td>
+                                            <td th:text="${ur.getKey().getFirstName()}">First Name</td>
+                                            <td th:text="${ur.getKey().getLastName()}">Last Name</td>
                                             <td th:text="${ur.getKey().getAge()}">Age</td>
                                             <td th:text="${ur.getKey().getEmail()}">Email</td>
                                             <td th:text="${ur.getValue()}">Role</td>
-                                            <td><a th:href="@{/mine/userFor/(id=${ur.getKey().getId()})}"
-                                                   class="btn btn-info btn-sm editBtn">Edit</a></td>
-                                            <td><a th:href="@{/mine/userFor/(id=${ur.getKey().getId()})}"
+
+                                            <td><a th:href="@{/user/userFor/(id=${ur.getKey().getId()})}"
+                                                class="btn btn-info btn-sm editBtn">Edit</a></td>
+
+                                            <td><a th:href="@{/user/userFor/(id=${ur.getKey().getId()})}"
                                                    class="btn btn-danger btn-sm deleteBtn">Delete</a></td>
                                         </tr>
                                     </div>
@@ -117,12 +119,12 @@
                                     <form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
                                         <div class="text-center">
                                             <label for="firstname" class="font-weight-bold  mb-0">First name</label>
-                                            <input type="text" id="firstname" name="firstname" class="form-control"
+                                            <input type="text" id="firstname" name="firstName" class="form-control"
                                                    placeholder="First name" required autofocus>
                                         </div>
                                         <div class="text-center mt-3">
                                             <label for="lastname" class="font-weight-bold  mb-0">Last name</label>
-                                            <input type="text" id="lastname" name="lastname" class="form-control"
+                                            <input type="text" id="lastname" name="lastName" class="form-control"
                                                    placeholder="Last name" required>
                                         </div>
                                         <div class="text-center mt-3">
@@ -178,8 +180,8 @@
                             <tbody>
                             <tr>
                                 <td th:text="${admin.getId()}">ID</td>
-                                <td th:text="${admin.getFirstname()}">First Name</td>
-                                <td th:text="${admin.getLastname()}">Last Name</td>
+                                <td th:text="${admin.getFirstName()}">First Name</td>
+                                <td th:text="${admin.getLastName()}">Last Name</td>
                                 <td th:text="${admin.getAge()}">Age</td>
                                 <td th:text="${admin.getEmail()}">Email</td>
                                 <td th:text="${role}">Role</td>
@@ -214,12 +216,12 @@
                     </div>
                     <div class="text-center mt-3">
                         <label for="firstname" class="font-weight-bold mb-0">First name</label>
-                        <input type="text" id="firstname1" name="firstname" class="form-control"
+                        <input type="text" id="firstname1" name="firstName" class="form-control"
                                placeholder="First name" required autofocus>
                     </div>
                     <div class="text-center mt-3">
                         <label for="lastname" class="font-weight-bold mb-0">Last name</label>
-                        <input type="text" id="lastname1" name="lastname" class="form-control"
+                        <input type="text" id="lastname1" name="lastName" class="form-control"
                                placeholder="Last name" required>
                     </div>
                     <div class="text-center mt-3">
@@ -276,12 +278,12 @@
                     </div>
                     <div class="text-center mt-3">
                         <label for="firstname" class="font-weight-bold mb-0">First name</label>
-                        <input type="text" id="firstname2" name="firstname" class="form-control"
+                        <input type="text" id="firstname2" name="firstName" class="form-control"
                                placeholder="First name" readonly>
                     </div>
                     <div class="text-center mt-3">
                         <label for="lastname" class="font-weight-bold mb-0">Last name</label>
-                        <input type="text" id="lastname2" name="lastname" class="form-control"
+                        <input type="text" id="lastname2" name="lastName" class="form-control"
                                placeholder="Last name" readonly>
                     </div>
                     <div class="text-center mt-3">
@@ -327,8 +329,8 @@
             event.preventDefault();
             $.get($(this).attr('href'), function (user) {
                 $('#id1').val(user.id);
-                $('#firstname1').val(user.firstname);
-                $('#lastname1').val(user.lastname);
+                $('#firstname1').val(user.firstName);
+                $('#lastname1').val(user.lastName);
                 $('#age1').val(user.age);
                 $('#email1').val(user.email);
             });
@@ -339,8 +341,8 @@
             event.preventDefault();
             $.get($(this).attr('href'), function (user) {
                 $('#id2').val(user.id);
-                $('#firstname2').val(user.firstname);
-                $('#lastname2').val(user.lastname);
+                $('#firstname2').val(user.firstName);
+                $('#lastname2').val(user.lastName);
                 $('#age2').val(user.age);
                 $('#email2').val(user.email);
             });

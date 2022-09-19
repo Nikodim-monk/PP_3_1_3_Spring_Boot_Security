@@ -9,13 +9,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kata.spring_boot_security.service.UserServiceImpl;
+import ru.kata.spring_boot_security.service.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     @Autowired
     private  SuccessUserHandler successUserHandler;
 
@@ -23,17 +23,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/mine/mL")
+                .loginPage("/user/mL")
                 .loginProcessingUrl("/process")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout().permitAll();
     }
+
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {

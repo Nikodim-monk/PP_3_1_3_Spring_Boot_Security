@@ -15,10 +15,10 @@ public class User {
     private long id;
 
     @Column(name = "firstname")
-    private String firstname;
+    private String firstName;
 
     @Column(name = "lastname")
-    private String lastname;
+    private String lastName;
 
     @Column(name = "age")
     private int age;

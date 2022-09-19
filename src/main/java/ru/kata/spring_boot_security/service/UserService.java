@@ -1,10 +1,13 @@
 package ru.kata.spring_boot_security.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ru.kata.spring_boot_security.entity.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     User getByEmail(String email);
 
@@ -18,4 +21,6 @@ public interface UserService {
 
     void userDelete(long id);
 
+    @Override
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }
