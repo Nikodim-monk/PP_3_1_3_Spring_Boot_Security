@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.kata.spring_boot_security.entity.User;
@@ -29,9 +30,9 @@ public class UserController {
         return "mine_login";
     }
 
-    @GetMapping("/userFor")
+    @GetMapping("/{id}")
     @ResponseBody
-    public User userFor(long id) {
+    public User userFor(@PathVariable("id") long id) {
         return service.getUser(id);
     }
 }
