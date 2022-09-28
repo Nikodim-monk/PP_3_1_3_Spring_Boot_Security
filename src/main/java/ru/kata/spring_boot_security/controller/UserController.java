@@ -25,11 +25,6 @@ public class UserController {
         return "user_panel";
     }
 
-    @GetMapping("/mL")
-    public String printMineLoginPage() {
-        return "mine_login";
-    }
-
     @GetMapping("/{id}")
     @ResponseBody
     public User userFor(@PathVariable("id") long id) {

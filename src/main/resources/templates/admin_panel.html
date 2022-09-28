@@ -100,7 +100,8 @@
                                             <td th:text="${ur.getKey().getEmail()}">Email</td>
                                             <td th:text="${ur.getValue()}">Role</td>
 
-                                            <td><a th:href="@{/user/{id}(id=${ur.getKey().getId()})}" class="btn btn-info btn-sm editBtn">Edit</a></td>
+                                            <td><a th:href="@{/user/{id}(id=${ur.getKey().getId()})}"
+                                                   class="btn btn-info btn-sm editBtn">Edit</a></td>
 
                                             <td><a th:href="@{/user/{id}(id=${ur.getKey().getId()})}"
                                                    class="btn btn-danger btn-sm deleteBtn">Delete</a></td>
@@ -146,7 +147,7 @@
                                             <select multiple class="form-control" name="role" id="role"
                                                     style="height: 50px;">
                                                 <option>ADMIN</option>
-                                                <option>USER</option>
+                                                <option selected>USER</option>
                                                 <option>ADMIN USER</option>
                                             </select>
                                         </div>

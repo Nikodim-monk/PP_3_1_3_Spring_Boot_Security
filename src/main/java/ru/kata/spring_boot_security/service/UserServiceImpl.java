@@ -18,8 +18,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements  UserService {
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
+
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
+    }
 
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

@@ -11,7 +11,6 @@ import java.util.Collection;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
 
     @Column(name = "firstname")
@@ -20,13 +19,10 @@ public class User {
     @Column(name = "lastname")
     private String lastName;
 
-    @Column(name = "age")
     private int age;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
     private String password;
 
     @ManyToMany
