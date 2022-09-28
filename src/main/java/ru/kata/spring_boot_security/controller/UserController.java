@@ -1,6 +1,5 @@
 package ru.kata.spring_boot_security.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +14,15 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    private UserService service;
+    private final UserService service;
+
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping()
     public String printUser(Principal principal, ModelMap model) {
-        User user = service.getByEmail(principal.getName());
-        model.addAttribute("user", user);
+        model.addAttribute("user", service.getByEmail(principal.getName()));
         return "user_panel";
     }
 

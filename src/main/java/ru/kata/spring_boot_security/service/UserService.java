@@ -3,6 +3,7 @@ package ru.kata.spring_boot_security.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import ru.kata.spring_boot_security.entity.Role;
 import ru.kata.spring_boot_security.entity.User;
 
 import java.util.List;
@@ -13,11 +14,11 @@ public interface UserService extends UserDetailsService {
 
     List<User> getAllUsers();
 
-    void addNewUser(User user);
+    void addNewUser(User user, String role);
 
     User getUser(long id);
 
-    void updateUser(User user);
+    void updateUser(User user, String role);
 
     void userDelete(long id);
 
