@@ -25,10 +25,4 @@ public class UserController {
         model.addAttribute("user", service.getByEmail(principal.getName()));
         return "user_panel";
     }
-
-    @GetMapping("/{id}")
-    @ResponseBody
-    public User userFor(@PathVariable("id") long id) {
-        return service.getUser(id);
-    }
 }
