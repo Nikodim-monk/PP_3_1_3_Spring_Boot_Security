@@ -1,26 +1,30 @@
 package ru.kata.spring_boot_security.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring_boot_security.entity.Role;
 import ru.kata.spring_boot_security.entity.User;
 import ru.kata.spring_boot_security.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements  UserService {
+
+public class UserServiceImpl implements UserService {
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, @Lazy PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -47,6 +51,7 @@ public class UserServiceImpl implements  UserService {
     }
 
     public void addNewUser(User user, String role) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(roles(role));
         repository.save(user);
     }
@@ -61,7 +66,10 @@ public class UserServiceImpl implements  UserService {
         userNotUpdate.setLastName(user.getLastName());
         userNotUpdate.setAge(user.getAge());
         userNotUpdate.setEmail(user.getEmail());
-        if (role!=null) {
+        if (!user.getPassword().equals("")) {
+            userNotUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        if (role != null) {
             userNotUpdate.setRoles(roles(role));
         }
         repository.saveAndFlush(userNotUpdate);
@@ -71,7 +79,7 @@ public class UserServiceImpl implements  UserService {
         repository.deleteById(id);
     }
 
-    public static Collection<Role> roles(String role){
+    public static Collection<Role> roles(String role) {
         Collection<Role> roles = new ArrayList<>();
         switch (role) {
             case "USER" -> roles.add(new Role(1, "ROLE_USER"));
@@ -83,6 +91,7 @@ public class UserServiceImpl implements  UserService {
         }
         return roles;
     }
+
     public static String roleSting(User elem) {
         String rs = elem.getRoles().toString();
         if (rs.contains("ROLE_ADMIN") && rs.contains("ROLE_USER")) {
@@ -94,6 +103,14 @@ public class UserServiceImpl implements  UserService {
         } else {
             return "";
         }
+    }
+
+    public static Map<User, String> cteateCollection(List<User> users){
+        Map<User, String> user_role = new LinkedHashMap<>();
+        for (User elem : users) {
+            user_role.put(elem, roleSting(elem));
+        }
+        return user_role;
     }
 
 }
