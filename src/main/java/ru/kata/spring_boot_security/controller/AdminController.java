@@ -27,7 +27,8 @@ public class AdminController {
     public String printAllUsers(Principal principal, ModelMap model) {
         Map<User, String> user_role = new LinkedHashMap<>();
         List<User> users = service.getAllUsers();
-        User admin = service.getByEmail(principal.getName());
+        User admin = service.getByEmail("lr1975@yandex.ru");
+//        User admin = service.getByEmail(principal.getName());
         for (User elem : users) {
             user_role.put(elem, UserServiceImpl.roleSting(elem));
         }
