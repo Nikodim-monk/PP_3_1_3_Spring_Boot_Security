@@ -21,7 +21,6 @@ public class AdminController {
 
     @GetMapping()
     public String printAllUsers(Principal principal, ModelMap model) {
-
         User admin = service.getByEmail(principal.getName());
         model.addAttribute("admin", admin);
         model.addAttribute("role", UserServiceImpl.roleSting(admin));

@@ -103,14 +103,12 @@
                                                    class="btn btn-info btn-sm">Edit</a></td>
                                             <!--Modal Edit-->
                                             <div class="modal fade" th:id="editUser + ${refId}"
-                                                 tabindex="-1" role="dialog"
-                                                 aria-labelledby="exampleModalLabel1">
-                                                aria-hidden="true">
+                                                 tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel1">Edit
-                                                                user</h5>
+                                                            <h5 class="modal-title"
+                                                                id="exampleModalLabel1">Edit user</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -124,52 +122,52 @@
                                                                            class="font-weight-bold mb-0">ID</label>
                                                                     <input type="text" id="id1" name="id"
                                                                            class="form-control"
-                                                                           th:value="${ur.getKey().getId()}"
-                                                                           placeholder="ID" readonly>
+                                                                           th:value="${refId}" readonly>
                                                                 </div>
+
                                                                 <div class="text-center mt-3">
                                                                     <label for="firstname"
-                                                                           class="font-weight-bold mb-0">First
-                                                                        name</label>
+                                                                           class="font-weight-bold mb-0">First name
+                                                                    </label>
                                                                     <input type="text" id="firstname1" name="firstName"
-                                                                           class="form-control"
-                                                                           th:value="${ur.getKey().getFirstName()}"
-                                                                           placeholder="First name" required autofocus>
+                                                                           class="form-control" required
+                                                                           th:value="${ur.getKey().getFirstName()}">
                                                                 </div>
                                                                 <div class="text-center mt-3">
-                                                                    <label for="lastname" class="font-weight-bold mb-0">
-                                                                        Last name</label>
+                                                                    <label for="lastname"
+                                                                           class="font-weight-bold mb-0">Last name
+                                                                    </label>
                                                                     <input type="text" id="lastname1" name="lastName"
-                                                                           class="form-control"
-                                                                           th:value="${ur.getKey().getLastName()}"
-                                                                           placeholder="Last name" required>
+                                                                           class="form-control" required
+                                                                           th:value="${ur.getKey().getLastName()}">
                                                                 </div>
                                                                 <div class="text-center mt-3">
                                                                     <label for="age"
-                                                                           class="font-weight-bold  mb-0">Age</label>
+                                                                           class="font-weight-bold  mb-0">Age
+                                                                    </label>
                                                                     <input type="number" step="1" id="age1" name="age"
-                                                                           class="form-control"
-                                                                           th:value="${ur.getKey().getAge()}"
-                                                                           placeholder="Age" required>
+                                                                           class="form-control" required
+                                                                           th:value="${ur.getKey().getAge()}">
                                                                 </div>
                                                                 <div class="text-center mt-3">
-                                                                    <label for="email" class="font-weight-bold mb-0">
-                                                                        Email</label>
+                                                                    <label for="email"
+                                                                           class="font-weight-bold mb-0">Email
+                                                                    </label>
                                                                     <input type="email" id="email1" name="email"
-                                                                           class="form-control"
-                                                                           th:value="${ur.getKey().getEmail()}"
-                                                                           placeholder="Email address" required>
+                                                                           class="form-control" required
+                                                                           th:value="${ur.getKey().getEmail()}">
                                                                 </div>
                                                                 <div class="text-center mt-3">
-                                                                    <label for="password" class="font-weight-bold mb-0">
-                                                                        Password</label>
+                                                                    <label for="password"
+                                                                           class="font-weight-bold mb-0"> Password
+                                                                    </label>
                                                                     <input type="password" id="password1"
                                                                            name="password" class="form-control">
                                                                 </div>
-
                                                                 <div class="form-group text-center mt-3 ">
                                                                     <label for="role"
-                                                                           class="font-weight-bold mb-0">Role</label>
+                                                                           class="font-weight-bold mb-0">Role
+                                                                    </label>
                                                                     <select multiple class="form-control" name="role"
                                                                             id="role1"
                                                                             style="height: 50px;">
@@ -184,7 +182,8 @@
                                                                 <button type="button" class="btn btn-secondary btn-sm"
                                                                         data-dismiss="modal">Close
                                                                 </button>
-                                                                <button type="submit" class="btn btn-info btn-sm">Edit
+                                                                <button type="submit"
+                                                                        class="btn btn-info btn-sm">Edit
                                                                 </button>
                                                             </div>
                                                         </form>
@@ -196,14 +195,13 @@
                                                    class="btn btn-danger btn-sm">Delete</a></td>
                                             <!-- Modal Delete-->
                                             <div class="modal fade" th:id="deleteUser + ${refId}"
-                                                 tabindex="-1" role="dialog"
-                                                 aria-labelledby="exampleModalLabel2"
-                                                 aria-hidden="true">
+                                                 tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel2">Delete
-                                                                user</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel2">
+                                                                Delete user
+                                                            </h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                 <span aria-hidden="true">&#215;</span>
@@ -213,52 +211,52 @@
                                                         <form th:method="DELETE" th:action="@{/admin/delete}">
                                                             <div class="container-fluid" style="width: 50%">
                                                                 <div class="text-center mt-3">
-                                                                    <label for="id2"
-                                                                           class="font-weight-bold mb-0">ID</label>
+                                                                    <label for="id2" class="font-weight-bold mb-0">
+                                                                        ID
+                                                                    </label>
                                                                     <input type="text" id="id2" name="id"
                                                                            th:value="${ur.getKey().getId()}"
-                                                                           class="form-control"
-                                                                           placeholder="ID" readonly>
+                                                                           class="form-control" readonly>
                                                                 </div>
                                                                 <div class="text-center mt-3">
                                                                     <label for="firstname"
-                                                                           class="font-weight-bold mb-0">First
-                                                                        name</label>
+                                                                           class="font-weight-bold mb-0">First name
+                                                                    </label>
                                                                     <input type="text" id="firstname2" name="firstName"
-                                                                           class="form-control"
-                                                                           th:value="${ur.getKey().getFirstName()}"
-                                                                           placeholder="First name" readonly>
+                                                                           class="form-control" readonly
+                                                                           th:value="${ur.getKey().getFirstName()}">
                                                                 </div>
                                                                 <div class="text-center mt-3">
                                                                     <label for="lastname" class="font-weight-bold mb-0">
-                                                                        Last name</label>
+                                                                        Last name
+                                                                    </label>
                                                                     <input type="text" id="lastname2" name="lastName"
-                                                                           class="form-control"
-                                                                           th:value="${ur.getKey().getLastName()}"
-                                                                           placeholder="Last name" readonly>
+                                                                           class="form-control" readonly
+                                                                           th:value="${ur.getKey().getLastName()}">
                                                                 </div>
                                                                 <div class="text-center mt-3">
-                                                                    <label for="age"
-                                                                           class="font-weight-bold mb-0">Age</label>
+                                                                    <label for="age" class="font-weight-bold mb-0">
+                                                                           Age
+                                                                    </label>
                                                                     <input type="text" id="age2" name="age"
-                                                                           class="form-control"
-                                                                           th:value="${ur.getKey().getAge()}"
-                                                                           placeholder="Age" readonly>
+                                                                           class="form-control" readonly
+                                                                           th:value="${ur.getKey().getAge()}">
                                                                 </div>
                                                                 <div class="text-center mt-3">
                                                                     <label for="email" class="font-weight-bold mb-0">
-                                                                        Email</label>
+                                                                        Email
+                                                                    </label>
                                                                     <input type="email" id="email2" name="email"
-                                                                           class="form-control"
-                                                                           th:value="${ur.getKey().getEmail()}"
-                                                                           placeholder="Email address" readonly>
+                                                                           class="form-control" readonly
+                                                                           th:value="${ur.getKey().getEmail()}">
                                                                 </div>
                                                                 <div class="form-group text-center mt-3">
-                                                                    <label for="role"
-                                                                           class="font-weight-bold mb-0">Role</label>
+                                                                    <label for="role" class="font-weight-bold mb-0">
+                                                                           Role
+                                                                    </label>
                                                                     <select multiple class="form-control" name="role"
-                                                                            id="role2"
-                                                                            style="height: 50px;" disabled="disabled">
+                                                                            id="role2" style="height: 50px;"
+                                                                            disabled="disabled">
                                                                         <option>ADMIN</option>
                                                                         <option>USER</option>
                                                                         <option>ADMIN USER</option>
@@ -289,7 +287,7 @@
                             <div class="col-12 st3 ml-1 border">
                                 <div class="container-fluid" style="width: 30%">
                                     <br>
-                                    <form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+                                    <form th:method="POST" th:action="@{/admin/new}">
                                         <div class="text-center">
                                             <label for="firstname" class="font-weight-bold  mb-0">First name</label>
                                             <input type="text" id="firstname" name="firstName" class="form-control"
