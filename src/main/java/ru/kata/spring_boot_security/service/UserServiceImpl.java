@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         repository.saveAndFlush(userNotUpdate);
     }
 
-    public void userDelete(long id) {
+    public void deleteUser(long id) {
         repository.deleteById(id);
     }
 

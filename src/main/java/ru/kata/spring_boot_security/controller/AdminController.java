@@ -1,5 +1,6 @@
 package ru.kata.spring_boot_security.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -8,16 +9,12 @@ import ru.kata.spring_boot_security.service.UserService;
 import ru.kata.spring_boot_security.service.UserServiceImpl;
 
 import java.security.Principal;
-import java.util.*;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
     private final UserService service;
-
-    public AdminController(UserService service) {
-        this.service = service;
-    }
 
     @GetMapping()
     public String printAllUsers(Principal principal, ModelMap model) {

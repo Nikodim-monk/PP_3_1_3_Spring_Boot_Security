@@ -1,6 +1,6 @@
 package ru.kata.spring_boot_security.configs;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,14 +13,10 @@ import ru.kata.spring_boot_security.service.UserService;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final SuccessUserHandler successUserHandler;
-
-    public WebSecurityConfig(UserService userService, SuccessUserHandler successUserHandler) {
-        this.userService = userService;
-        this.successUserHandler = successUserHandler;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

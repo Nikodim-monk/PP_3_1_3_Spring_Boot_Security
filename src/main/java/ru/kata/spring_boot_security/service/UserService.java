@@ -20,7 +20,7 @@ public interface UserService extends UserDetailsService {
 
     void updateUser(User user, String role);
 
-    void userDelete(long id);
+    void deleteUser(long id);
 
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
