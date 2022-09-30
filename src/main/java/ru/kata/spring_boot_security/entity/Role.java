@@ -1,25 +1,18 @@
 package ru.kata.spring_boot_security.entity;
 
-import lombok.Data;
-
+import lombok.*;
 import javax.persistence.*;
-
 @Entity
-@Data
 @Table(name = "roles")
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String role;
-
-    public Role(long id, String role) {
-        this.id = id;
-        this.role = role;
-    }
-
-    public Role() {
-
-    }
 }
 

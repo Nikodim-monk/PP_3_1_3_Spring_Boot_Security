@@ -1,13 +1,13 @@
 package ru.kata.spring_boot_security.entity;
 
-import lombok.Data;
-
+import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
-
 @Entity
-@Data
 @Table(name = "users")
+@Getter
+@Setter
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
