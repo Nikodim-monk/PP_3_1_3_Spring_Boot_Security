@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring_boot_security.entity.Role;
 import ru.kata.spring_boot_security.entity.User;
+import ru.kata.spring_boot_security.init.InitUser;
 import ru.kata.spring_boot_security.repository.UserRepository;
 
 import java.util.*;
@@ -44,42 +45,49 @@ public class UserServiceImpl implements UserService {
     public User getByEmail(String email) {
         return repository.findByEmail(email);
     }
+
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return repository.findAll();
     }
+
     @Transactional
     public void addNewUser(User user, String role) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(roles(role));
-        repository.save(user);
+        if (getByEmail(user.getEmail()) == null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(roles(role));
+            repository.save(user);
+        }
     }
+
     @Transactional(readOnly = true)
     public User getUser(long id) {
         return repository.findById(id).orElse(null);
     }
+
     @Transactional
     public void updateUser(User user, String role) {
-        User userNotUpdate = getUser(user.getId());
-        userNotUpdate.setFirstName(user.getFirstName());
-        userNotUpdate.setLastName(user.getLastName());
-        userNotUpdate.setAge(user.getAge());
-        userNotUpdate.setEmail(user.getEmail());
-        if (!user.getPassword().equals("")) {
-            userNotUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+            User userNotUpdate = getUser(user.getId());
+            userNotUpdate.setFirstName(user.getFirstName());
+            userNotUpdate.setLastName(user.getLastName());
+            userNotUpdate.setAge(user.getAge());
+            userNotUpdate.setEmail(user.getEmail());
+            if (!user.getPassword().equals("")) {
+                userNotUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            if (role != null) {
+                userNotUpdate.setRoles(roles(role));
+            }
+            repository.saveAndFlush(userNotUpdate);
         }
-        if (role != null) {
-            userNotUpdate.setRoles(roles(role));
-        }
-        repository.saveAndFlush(userNotUpdate);
-    }
+
     @Transactional
     public void deleteUser(long id) {
         repository.deleteById(id);
     }
 
     public static Set<Role> roles(String role) {
-        Set<Role> roles=new HashSet<>();
+        Set<Role> roles = new HashSet<>();
         switch (role) {
             case "USER" -> roles.add(new Role(1, "ROLE_USER"));
             case "ADMIN" -> roles.add(new Role(2, "ROLE_ADMIN"));
@@ -104,11 +112,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public static Map<User, String> cteateCollection(List<User> users){
+    public static Map<User, String> cteateCollection(List<User> users) {
         Map<User, String> user_role = new LinkedHashMap<>();
         for (User elem : users) {
             user_role.put(elem, roleSting(elem));
         }
         return user_role;
     }
+
 }

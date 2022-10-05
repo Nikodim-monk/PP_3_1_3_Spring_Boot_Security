@@ -16,6 +16,7 @@ import java.security.Principal;
 public class AdminController {
     private final UserService service;
 
+
     @GetMapping()
     public String printAllUsers(Principal principal, ModelMap model) {
         User admin = service.getByEmail(principal.getName());

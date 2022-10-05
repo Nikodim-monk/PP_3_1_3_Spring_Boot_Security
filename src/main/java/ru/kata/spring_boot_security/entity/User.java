@@ -2,7 +2,6 @@ package ru.kata.spring_boot_security.entity;
 
 import lombok.*;
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,6 +9,8 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -27,6 +28,14 @@ public class User {
     private String email;
 
     private String password;
+
+    public User(String firstName, String lastName, int age, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+    }
 
     @ManyToMany
     @JoinTable(name = "user_roles",
