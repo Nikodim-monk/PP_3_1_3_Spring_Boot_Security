@@ -10,14 +10,14 @@ import ru.kata.spring_boot_security.service.UserService;
 public class InitUser {
     private final UserService service;
 
-    public void createDefaultUserInBase() {
-        User user = new User("User", "Userov", 100, "user@mail.ru", "user");
-        service.addNewUser(user, "USER");
-    }
-
-    public void createDefaultAdminInBase() {
-        User admin = new User("Admin", "Adminov", 100, "admin@mail.ru", "admin");
-        service.addNewUser(admin, "ADMIN");
+    public void createDefaultUsersInBase() {
+        service.addNewUser(new User(
+                "User", "Userov", 100, "user@mail.ru", "user"), "USER");
+        service.addNewUser(new User(
+                "Admin", "Adminov", 100, "admin@mail.ru", "admin"), "ADMIN");
+        service.addNewUser(new User(
+                "AdminUser", "AdminUserov", 100, "adminUser@mail.ru", "admin"),
+                "ADMIN USER");
     }
 }
 
