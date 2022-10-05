@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring_boot_security.entity.Role;
 import ru.kata.spring_boot_security.entity.User;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.NEVER)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = getByEmail(email);
         if (user == null) {
@@ -43,21 +44,21 @@ public class UserServiceImpl implements UserService {
     public User getByEmail(String email) {
         return repository.findByEmail(email);
     }
-
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return repository.findAll();
     }
-
+    @Transactional
     public void addNewUser(User user, String role) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(roles(role));
         repository.save(user);
     }
-
+    @Transactional(readOnly = true)
     public User getUser(long id) {
         return repository.findById(id).orElse(null);
     }
-
+    @Transactional
     public void updateUser(User user, String role) {
         User userNotUpdate = getUser(user.getId());
         userNotUpdate.setFirstName(user.getFirstName());
@@ -72,13 +73,13 @@ public class UserServiceImpl implements UserService {
         }
         repository.saveAndFlush(userNotUpdate);
     }
-
+    @Transactional
     public void deleteUser(long id) {
         repository.deleteById(id);
     }
 
-    public static Collection<Role> roles(String role) {
-        Collection<Role> roles = new ArrayList<>();
+    public static Set<Role> roles(String role) {
+        Set<Role> roles=new HashSet<>();
         switch (role) {
             case "USER" -> roles.add(new Role(1, "ROLE_USER"));
             case "ADMIN" -> roles.add(new Role(2, "ROLE_ADMIN"));
@@ -110,5 +111,4 @@ public class UserServiceImpl implements UserService {
         }
         return user_role;
     }
-
 }

@@ -3,7 +3,6 @@ package ru.kata.spring_boot_security.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.kata.spring_boot_security.entity.Role;
 import ru.kata.spring_boot_security.entity.User;
 
 import java.util.List;
