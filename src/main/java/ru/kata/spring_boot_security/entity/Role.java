@@ -1,6 +1,7 @@
 package ru.kata.spring_boot_security.entity;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -16,6 +17,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String role;
+
+    public Role(String role) {
+        this.role = role;
+    }
 
     @Override
     public boolean equals(Object o) {
