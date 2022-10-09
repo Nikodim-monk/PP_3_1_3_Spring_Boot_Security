@@ -17,12 +17,9 @@ public class InitUser {
         roleService.addNewRole(new Role("ROLE_USER"));
         roleService.addNewRole(new Role("ROLE_ADMIN"));
         service.addNewUser(new User(
-                "User", "Userov", 100, "user@mail.ru", "user"), "USER");
+                "user", "user", 100, "user@mail.ru", "user"), "USER");
         service.addNewUser(new User(
-                "Admin", "Adminov", 100, "admin@mail.ru", "admin"), "ADMIN");
-        service.addNewUser(new User(
-                        "AdminUser", "AdminUserov", 100, "adminUser@mail.ru",
-                        "admin"),"ADMIN USER");
+                "admin", "admin", 100, "admin@mail.ru", "admin"), "ADMIN");
     }
 }
 
