@@ -1,6 +1,7 @@
 package ru.kata.spring_boot_security.entity;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;

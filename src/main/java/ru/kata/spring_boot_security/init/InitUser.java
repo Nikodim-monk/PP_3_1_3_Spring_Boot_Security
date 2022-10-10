@@ -2,6 +2,7 @@ package ru.kata.spring_boot_security.init;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring_boot_security.entity.Role;
 import ru.kata.spring_boot_security.entity.User;
 import ru.kata.spring_boot_security.service.RoleService;
@@ -13,6 +14,7 @@ public class InitUser {
     private final UserService service;
     private final RoleService roleService;
 
+    @Transactional
     public void createDefaultUsersAndRolesInBase() {
         roleService.addNewRole(new Role("ROLE_USER"));
         roleService.addNewRole(new Role("ROLE_ADMIN"));

@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring_boot_security.entity.Role;
 import ru.kata.spring_boot_security.entity.User;
-import ru.kata.spring_boot_security.init.InitUser;
 import ru.kata.spring_boot_security.repository.UserRepository;
 
 import java.util.*;
@@ -27,6 +26,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Override
     @Transactional(propagation = Propagation.NEVER)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = getByEmail(email);
@@ -42,15 +42,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getByEmail(String email) {
         return repository.findByEmail(email);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return repository.findAll();
     }
 
+    @Override
     @Transactional
     public void addNewUser(User user, String role) {
         if (getByEmail(user.getEmail()) == null) {
@@ -60,27 +63,30 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
     public User getUser(long id) {
         return repository.findById(id).orElse(null);
     }
 
+    @Override
     @Transactional
     public void updateUser(User user, String role) {
-            User userNotUpdate = getUser(user.getId());
-            userNotUpdate.setFirstName(user.getFirstName());
-            userNotUpdate.setLastName(user.getLastName());
-            userNotUpdate.setAge(user.getAge());
-            userNotUpdate.setEmail(user.getEmail());
-            if (!user.getPassword().equals("")) {
-                userNotUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
-            }
-            if (role != null) {
-                userNotUpdate.setRoles(roles(role));
-            }
-            repository.saveAndFlush(userNotUpdate);
+        User userNotUpdate = getUser(user.getId());
+        userNotUpdate.setFirstName(user.getFirstName());
+        userNotUpdate.setLastName(user.getLastName());
+        userNotUpdate.setAge(user.getAge());
+        userNotUpdate.setEmail(user.getEmail());
+        if (!user.getPassword().equals("")) {
+            userNotUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
         }
+        if (role != null) {
+            userNotUpdate.setRoles(roles(role));
+        }
+        repository.saveAndFlush(userNotUpdate);
+    }
 
+    @Override
     @Transactional
     public void deleteUser(long id) {
         repository.deleteById(id);

@@ -8,18 +8,20 @@ import ru.kata.spring_boot_security.repository.RoleRepository;
 
 @Service
 @RequiredArgsConstructor
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
     private final RoleRepository repository;
 
     @Override
+    @Transactional(readOnly = true)
     public Role getByRole(String role) {
         return repository.findByRole(role);
     }
+
+    @Override
     @Transactional
     public void addNewRole(Role role) {
-        if(getByRole(role.getRole())==null) {
+        if (getByRole(role.getRole()) == null) {
             repository.save(role);
         }
-
     }
 }
