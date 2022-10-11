@@ -20,10 +20,12 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
+    private final RoleService roleService;
 
-    public UserServiceImpl(UserRepository repository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository repository, @Lazy PasswordEncoder passwordEncoder, RoleService roleService) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService {
     public void addNewUser(User user, String role) {
         if (getByEmail(user.getEmail()) == null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(roles(role));
+            user.setRoles(roleService.getSetRoles(role));
             repository.save(user);
         }
     }
@@ -81,7 +83,7 @@ public class UserServiceImpl implements UserService {
             userNotUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         if (role != null) {
-            userNotUpdate.setRoles(roles(role));
+            userNotUpdate.setRoles(roleService.getSetRoles(role));
         }
         repository.saveAndFlush(userNotUpdate);
     }
@@ -92,36 +94,11 @@ public class UserServiceImpl implements UserService {
         repository.deleteById(id);
     }
 
-    public static Set<Role> roles(String role) {
-        Set<Role> roles = new HashSet<>();
-        switch (role) {
-            case "USER" -> roles.add(new Role(1, "ROLE_USER"));
-            case "ADMIN" -> roles.add(new Role(2, "ROLE_ADMIN"));
-            case "ADMIN USER" -> {
-                roles.add(new Role(1, "ROLE_USER"));
-                roles.add(new Role(2, "ROLE_ADMIN"));
-            }
-        }
-        return roles;
-    }
-
-    public static String roleSting(User elem) {
-        String rs = elem.getRoles().toString();
-        if (rs.contains("ROLE_ADMIN") && rs.contains("ROLE_USER")) {
-            return "ADMIN USER";
-        } else if (rs.contains("ROLE_ADMIN")) {
-            return "ADMIN";
-        } else if (rs.contains("ROLE_USER")) {
-            return "USER";
-        } else {
-            return "";
-        }
-    }
-
-    public static Map<User, String> cteateCollection(List<User> users) {
+    @Override
+    public Map<User, String> createUserCollection(List<User> users) {
         Map<User, String> user_role = new LinkedHashMap<>();
         for (User elem : users) {
-            user_role.put(elem, roleSting(elem));
+            user_role.put(elem, roleService.getRoleToSting(elem));
         }
         return user_role;
     }
