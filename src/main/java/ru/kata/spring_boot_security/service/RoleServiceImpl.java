@@ -35,7 +35,7 @@ public class RoleServiceImpl implements RoleService {
         switch (role) {
             case "USER" -> roles.add(new Role(1, "ROLE_USER"));
             case "ADMIN" -> roles.add(new Role(2, "ROLE_ADMIN"));
-            case "ADMIN USER" -> {
+            case "ADMIN,USER" -> {
                 roles.add(new Role(1, "ROLE_USER"));
                 roles.add(new Role(2, "ROLE_ADMIN"));
             }
